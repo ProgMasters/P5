@@ -80,3 +80,22 @@ mysort([H1,H2|L1], L2) :- mysplit([H1,H2|L1], X1, X2), mysort(X1, Z1),
 
 % Part 4
 
+% a.
+
+binaryTree(nil).
+binaryTree(t(_, L, R)) :- binaryTree(L), binaryTree(R).
+
+% b.
+
+preorder(nil, []).
+preorder(t(X, L, R), Lis) :- preorder(L, LeftLis), preorder(R, RightLis),
+						   append([X|LeftLis], RightLis, Lis).
+
+% c.
+
+leaves(nil, []).
+leaves(t(X, nil, nil), [X]).
+leaves(t(X, nil, R), Lis) :- leaves(R, Lis).
+leaves(t(X, L, nil), Lis) :- leaves(L, Lis).
+leaves(t(_, L, R), Lis) :- leaves(L, LeftLis), leaves(R, RightLis),
+						   append(LeftLis, RightLis, Lis).
