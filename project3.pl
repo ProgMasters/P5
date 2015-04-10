@@ -95,7 +95,11 @@ preorder(t(X, L, R), Lis) :- preorder(L, LeftLis), preorder(R, RightLis),
 
 leaves(nil, []).
 leaves(t(X, nil, nil), [X]).
-leaves(t(X, nil, R), Lis) :- leaves(R, Lis).
-leaves(t(X, L, nil), Lis) :- leaves(L, Lis).
+leaves(t(_, nil, R), Lis) :- not(R=nil), leaves(R, Lis).
+leaves(t(_, L, nil), Lis) :- not(L=nil), leaves(L, Lis).
 leaves(t(_, L, R), Lis) :- leaves(L, LeftLis), leaves(R, RightLis),
+						   not(L=nil), not(R=nil),
 						   append(LeftLis, RightLis, Lis).
+
+% Part 5
+
